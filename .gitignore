@@ -33,3 +33,4 @@ node_modules/
 /coverage/
 !backend/app/coverage/
 !backend/app/coverage/**
+backend/app/coverage/**/__pycache__/
