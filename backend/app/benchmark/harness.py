@@ -841,8 +841,10 @@ def run_benchmark(
                     UniversalEvidenceIngestionService,
                 )
 
-                evidence_adapter = TypeAdapter(EvidenceSource)
-                output_adapter = TypeAdapter(GeneratedEvidenceOutput)
+                evidence_adapter: TypeAdapter[EvidenceSource] = TypeAdapter(EvidenceSource)
+                output_adapter: TypeAdapter[GeneratedEvidenceOutput] = TypeAdapter(
+                    GeneratedEvidenceOutput
+                )
                 typed_sources = [
                     evidence_adapter.validate_python(document)
                     for document in raw_source_documents

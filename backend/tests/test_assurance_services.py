@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from datetime import UTC, datetime, timedelta
+from typing import Any, cast
 
 import pytest
 from pydantic import ValidationError
@@ -23,10 +25,9 @@ from backend.app.domain.enums import (
     Severity,
 )
 from backend.app.domain.models import Finding, TextSpan
-from backend.app.evaluators import (
-    EvaluatorRouter,
-)
-from backend.app.evaluators.external import ExternalEvaluationResult
+from backend.app.evaluators import EvaluatorRouter
+from backend.app.evaluators.contract import ContractEvaluationResult
+from backend.app.evaluators.external import ExternalEvaluationResult, ExternalRunner
 from backend.app.policies import (
     MissingRequiredCoverageAction,
     PolicyOperator,
@@ -245,13 +246,16 @@ def test_evaluator_router_enumerates_every_family_with_executable_contracts() ->
     assert {route.test_family for route in routes} == set(test_selection.TestFamily)
     assert all(route.implemented for route in routes)
 
-    result = router.evaluate(
-        test_selection.TestFamily.ROBUSTNESS,
-        {
-            "variant_outputs": ["safe answer", "safe answer"],
-            "expectation": {"require_same_output": True},
-            "generated_output": "safe answer",
-        },
+    result = cast(
+        ContractEvaluationResult,
+        router.evaluate(
+            test_selection.TestFamily.ROBUSTNESS,
+            {
+                "variant_outputs": ["safe answer", "safe answer"],
+                "expectation": {"require_same_output": True},
+                "generated_output": "safe answer",
+            },
+        ),
     )
     assert result.assessment_status == "ASSESSED"
     assert result.coverage.status == "FULL"
@@ -285,13 +289,13 @@ def test_every_non_faithfulness_family_has_a_working_contract_path() -> None:
                 {"group": "B", "output": "safe answer"},
             ]
             payload["expectation"] = {"require_equivalent": True}
-        result = router.evaluate(family, payload)
+        result = cast(ContractEvaluationResult, router.evaluate(family, payload))
         assert result.assessment_status == "ASSESSED", family
         assert result.coverage.status == "FULL", family
 
 
 def test_external_runners_enable_medhelm_and_langtest_routes() -> None:
-    def runner(payload: dict[str, object]) -> dict[str, object]:
+    def runner(payload: Mapping[str, Any]) -> Mapping[str, Any]:
         assert payload["case_id"] == "case-1"
         return {"score": 92.0, "passed": True}
 
@@ -319,11 +323,11 @@ def test_external_runners_enable_medhelm_and_langtest_routes() -> None:
 
 
 def test_external_evaluator_fails_closed_on_partial_coverage() -> None:
-    def partial_runner(_: dict[str, object]) -> dict[str, object]:
+    def partial_runner(_: Mapping[str, Any]) -> dict[str, Any]:
         return {"score": 40.0, "coverage": {"status": "REDUCED"}}
 
     router = EvaluatorRouter(
-        langtest_runner=partial_runner,
+        langtest_runner=cast(ExternalRunner, partial_runner),
         use_environment_runners=False,
     )
     with pytest.raises(Exception, match="external evaluator returned an invalid result"):
