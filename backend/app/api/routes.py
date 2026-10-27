@@ -19,7 +19,12 @@ from sqlalchemy.orm import Session
 from sqlalchemy.sql import Select
 
 from backend.app.api.decimal_json import DecimalJSONRoute
-from backend.app.api.dependencies import get_db_session, get_encryptor, require_scopes
+from backend.app.api.dependencies import (
+    get_api_settings,
+    get_db_session,
+    get_encryptor,
+    require_scopes,
+)
 from backend.app.api.errors import ApiError
 from backend.app.api.schemas import (
     EVALUATION_OPENAPI_EXAMPLES,
@@ -37,6 +42,7 @@ from backend.app.auditing import record_audit_event
 from backend.app.auth import ApiKeyPrincipal, ApiScope
 from backend.app.clinical_nlp import ClinicalNLPService
 from backend.app.compare_engine import compare
+from backend.app.core.config import Settings
 from backend.app.core.errors import ErrorCode, GatekeeperError
 from backend.app.core.idempotency import IdempotencyReplay, IdempotencyService
 from backend.app.coverage import (
@@ -69,6 +75,7 @@ from backend.app.domain.models import CompareResult
 from backend.app.evaluations import EvaluationService, SingleEvaluationRequest
 from backend.app.evaluators import EVALUATOR_ROUTER_VERSION, EvaluatorRouter
 from backend.app.ingestion import IngestionLimits, UniversalEvidenceIngestionService
+from backend.app.llm import AnthropicTestSelectionPlanner, LLMPlannerError, preview_test_selection
 from backend.app.observability import MetricName
 from backend.app.orchestration.engine import ORCHESTRATOR_VERSION
 from backend.app.policies import ReleasePolicy as DomainReleasePolicy
@@ -352,6 +359,61 @@ def get_system(
     payload = _system_payload(session, principal.organization_id, system)
     session.commit()
     return payload
+
+
+@router.post("/systems/{system_id}/test-selection/llm-preview")
+def preview_llm_test_selection(
+    system_id: str,
+    principal: ApiKeyPrincipal = Depends(test_plans_manage),
+    session: Session = Depends(get_db_session),
+    settings: Settings = Depends(get_api_settings),
+) -> dict[str, Any]:
+    """Return grounded LLM advice without mutating the approved test plan.
+
+    The deterministic selection remains authoritative.  This endpoint is a
+    review surface for an operator; the returned proposal is not executable
+    until a normal test-plan draft is created and explicitly confirmed.
+    """
+
+    if not settings.llm_planner_enabled:
+        raise ApiError(
+            "LLM_PLANNER_DISABLED",
+            "The LLM test planner is disabled. Set GATEKEEPER_LLM_PLANNER_ENABLED=true "
+            "only after configuring the Anthropic model and secret.",
+            http_status=409,
+        )
+    if settings.llm_provider != "anthropic" or not settings.anthropic_api_key:
+        raise ApiError(
+            "LLM_PLANNER_NOT_CONFIGURED",
+            "The Anthropic LLM planner is not fully configured.",
+            http_status=503,
+        )
+    system = TenantRepository(session, AISystem).get(principal.organization_id, system_id)
+    if system is None:
+        raise _not_found(ErrorCode.SYSTEM_NOT_FOUND.value, "AI system")
+    _require_system_read_access(session, principal, system.id)
+    _require_active_system(system)
+    _, profile = _profile_for_system(session, principal.organization_id, system.id)
+    if profile is None:
+        raise ApiError(
+            "APPLICATION_PROFILE_REQUIRED",
+            "A versioned application profile is required before planning.",
+            http_status=409,
+        )
+    try:
+        planner = AnthropicTestSelectionPlanner(
+            api_key=settings.anthropic_api_key,
+            model=settings.llm_model,
+            timeout_seconds=settings.llm_timeout_seconds,
+        )
+        preview = preview_test_selection(profile, select_tests(profile), planner)
+    except (LLMPlannerError, ValueError) as exc:
+        raise ApiError(
+            "LLM_PLANNER_FAILED",
+            "The LLM planner could not produce a valid grounded proposal.",
+            http_status=502,
+        ) from exc
+    return preview.model_dump(mode="json")
 
 
 @router.post("/systems/{system_id}/versions", status_code=201)

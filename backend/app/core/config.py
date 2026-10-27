@@ -105,6 +105,13 @@ class Settings(BaseSettings):
     ner_backend: Literal["rules", "huggingface"] = "rules"
     ner_model: str = HF_NER_MODEL_NAME
     ner_model_revision: str = HF_NER_MODEL_REVISION
+    # The LLM planner is an opt-in advisory layer.  It cannot replace the
+    # deterministic selection rules or make release decisions.
+    llm_planner_enabled: bool = False
+    llm_provider: Literal["anthropic"] = "anthropic"
+    llm_model: str = ""
+    anthropic_api_key: str | None = Field(default=None, repr=False)
+    llm_timeout_seconds: float = Field(default=30.0, gt=0, le=120.0)
     semantic_evaluation_enabled: bool = False
     customer_ai_timeout_seconds: float = Field(default=20.0, gt=0)
     customer_ai_max_retries: int = Field(default=2, ge=0, le=10)
@@ -131,6 +138,15 @@ class Settings(BaseSettings):
                 "external semantic model runtime is not configured in this release; "
                 "the built-in offline cascade remains enabled"
             )
+        if self.llm_planner_enabled:
+            if self.llm_provider != "anthropic":
+                raise ValueError("the LLM planner currently supports only Anthropic")
+            if not self.llm_model.strip():
+                raise ValueError("an LLM model is required when the LLM planner is enabled")
+            if not self.anthropic_api_key or not self.anthropic_api_key.strip():
+                raise ValueError(
+                    "an Anthropic API key is required when the LLM planner is enabled"
+                )
 
         keys = [item.strip() for item in self.data_encryption_keys.split(",") if item.strip()]
         if not keys:
