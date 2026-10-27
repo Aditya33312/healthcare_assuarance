@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib
 import importlib.metadata
 import json
 import platform
@@ -84,7 +85,7 @@ def _base_artifact() -> dict[str, Any]:
 
 
 def _run_embedding(artifact: dict[str, Any]) -> None:
-    import numpy as np
+    np: Any = importlib.import_module("numpy")
     from huggingface_hub import snapshot_download  # type: ignore[import-not-found]
     from model2vec import StaticModel  # type: ignore[import-not-found]
 
