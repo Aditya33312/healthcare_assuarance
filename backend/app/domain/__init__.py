@@ -1,0 +1,51 @@
+"""Versioned, evaluator-independent domain contracts."""
+
+from backend.app.domain.enums import (
+    AlignmentMethod,
+    AssertionStatus,
+    ClaimType,
+    CoverageStatus,
+    ExecutionStatus,
+    FindingType,
+    ReleaseDecision,
+    Severity,
+    SubjectType,
+)
+from backend.app.domain.models import (
+    Claim,
+    CompareResult,
+    ComponentVersions,
+    CoverageLimitationDetail,
+    CoverageSummary,
+    EvidenceReference,
+    FaithfulnessMetrics,
+    Finding,
+    GeneratedOutput,
+    SourceBundle,
+    SourceDocument,
+    TextSpan,
+)
+
+__all__ = [
+    "AlignmentMethod",
+    "AssertionStatus",
+    "Claim",
+    "ClaimType",
+    "CompareResult",
+    "ComponentVersions",
+    "CoverageLimitationDetail",
+    "CoverageStatus",
+    "CoverageSummary",
+    "EvidenceReference",
+    "ExecutionStatus",
+    "FaithfulnessMetrics",
+    "Finding",
+    "FindingType",
+    "GeneratedOutput",
+    "ReleaseDecision",
+    "Severity",
+    "SourceBundle",
+    "SourceDocument",
+    "SubjectType",
+    "TextSpan",
+]

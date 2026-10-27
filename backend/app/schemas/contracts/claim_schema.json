@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gatekeeper.health/schemas/contracts/claim/1.0.0",
+  "title": "Gatekeeper Clinical Claim Contract",
+  "description": "Version 1.0.0 contract for a normalized clinical claim linked to source evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "claim_id",
+    "concept",
+    "type",
+    "attributes",
+    "assertion",
+    "subject",
+    "source_span",
+    "confidence",
+    "extractor",
+    "extractor_version"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "claim_id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$" },
+    "concept": { "type": "string", "minLength": 1 },
+    "type": { "$ref": "#/$defs/claimType" },
+    "attributes": { "$ref": "#/$defs/claimAttributes" },
+    "assertion": { "$ref": "#/$defs/assertionStatus" },
+    "subject": { "$ref": "#/$defs/subjectType" },
+    "source_span": { "$ref": "#/$defs/textSpan" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "extractor": { "type": "string", "minLength": 1 },
+    "extractor_version": { "$ref": "#/$defs/semanticVersion" }
+  },
+  "$defs": {
+    "semanticVersion": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+    },
+    "claimType": {
+      "enum": [
+        "CONDITION",
+        "SYMPTOM",
+        "MEDICATION",
+        "DOSE",
+        "UNIT",
+        "FREQUENCY",
+        "ROUTE",
+        "PROCEDURE",
+        "BODY_SITE",
+        "LATERALITY",
+        "ALLERGY",
+        "LAB_TEST",
+        "LAB_VALUE",
+        "DATE",
+        "TIME",
+        "DURATION",
+        "AGE",
+        "CLINICAL_FACT"
+      ]
+    },
+    "assertionStatus": {
+      "enum": [
+        "PRESENT",
+        "ABSENT",
+        "POSSIBLE",
+        "HISTORICAL",
+        "FAMILY_HISTORY",
+        "HYPOTHETICAL",
+        "CONDITIONAL",
+        "UNCERTAIN"
+      ]
+    },
+    "subjectType": { "enum": ["PATIENT", "FAMILY", "OTHER_PERSON", "UNKNOWN"] },
+    "claimAttributes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": { "type": ["number", "string", "null"] },
+        "dose": { "type": ["number", "string", "null"] },
+        "unit": { "type": ["string", "null"] },
+        "frequency": { "type": ["string", "null"] },
+        "route": { "type": ["string", "null"] },
+        "formulation": { "type": ["string", "null"] },
+        "laterality": {
+          "enum": ["LEFT", "RIGHT", "BILATERAL", "MIDLINE", "NOT_APPLICABLE", "UNKNOWN", null]
+        },
+        "body_site": { "type": ["string", "null"] },
+        "lab_value": { "type": ["number", "string", "null"] },
+        "lab_unit": { "type": ["string", "null"] },
+        "date": { "type": ["string", "null"] },
+        "time": { "type": ["string", "null"] },
+        "duration": { "type": ["string", "null"] },
+        "age": { "type": ["number", "string", "null"] },
+        "normalized_value": { "type": ["number", "string", "null"] },
+        "normalized_unit": { "type": ["string", "null"] },
+        "raw_value": { "type": ["number", "string", "null"] },
+        "raw_unit": { "type": ["string", "null"] },
+        "parent_concept": { "type": ["string", "null"] },
+        "parent_claim_id": { "type": ["string", "null"] }
+      }
+    },
+    "textSpan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "start", "end"],
+      "properties": {
+        "document_id": { "type": ["string", "null"], "minLength": 1 },
+        "text": { "type": "string", "minLength": 1 },
+        "start": { "type": "integer", "minimum": 0 },
+        "end": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "healthcare-ai-gatekeeper"
+version = "0.1.0"
+description = "Auditable healthcare AI assurance and release-gating platform"
+readme = "README.md"
+requires-python = ">=3.12.4"
+license = { text = "Proprietary" }
+dependencies = [
+  "alembic>=1.14,<2",
+  "cryptography>=46.0.7,<51",
+  "fastapi>=0.115,<1",
+  "httpx>=0.28,<1",
+  "pydantic>=2.10,<3",
+  "pydantic-settings>=2.7,<3",
+  "psycopg[binary]>=3.2,<4",
+  "sqlalchemy>=2.0,<3",
+  "uvicorn[standard]>=0.34,<1",
+]
+
+[project.optional-dependencies]
+ml = [
+  "torch>=2.4,<3",
+  "transformers>=4.48,<6",
+  "sentence-transformers>=3.3,<6",
+]
+evaluation = [
+  "langtest>=2.8,<3",
+]
+medhelm = [
+  "medhelm>=0.8,<0.9",
+  "torch>=1.13.1,<3",
+]
+dev = [
+  "coverage[toml]>=7.6,<8",
+  "jsonschema>=4.23,<5",
+  "types-jsonschema>=4.23,<5",
+  "mypy>=1.14,<2",
+  "pytest>=8.3,<10",
+  "pytest-asyncio>=0.25,<2",
+  "pytest-cov>=6,<8",
+  "respx>=0.22,<1",
+  "ruff>=0.9,<1",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["backend*"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["backend/tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+markers = [
+  "integration: tests that cross process or persistence boundaries",
+  "ml: tests requiring optional pretrained model dependencies",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["alembic/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+ignore = ["B008"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["backend"]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+strict = true
+warn_unused_ignores = true
+exclude = ["alembic/versions"]
+
+[tool.coverage.run]
+branch = true
+source = ["backend/app"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 80

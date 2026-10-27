@@ -1,0 +1,27 @@
+"""Reusable clinical NLP baseline."""
+
+from backend.app.clinical_nlp.service import ClinicalNLPService
+from backend.app.clinical_nlp.versions import (
+    ASSERTION_RULES_VERSION,
+    CLINICAL_NLP_VERSION,
+    DETERMINISTIC_EXTRACTOR_VERSION,
+    HF_NER_MODEL_NAME,
+    HF_NER_MODEL_REVISION,
+    HF_NER_MODEL_VERSION,
+    NORMALIZATION_VERSION,
+    PREPROCESSING_VERSION,
+    RELATION_RULES_VERSION,
+)
+
+__all__ = [
+    "ASSERTION_RULES_VERSION",
+    "CLINICAL_NLP_VERSION",
+    "DETERMINISTIC_EXTRACTOR_VERSION",
+    "HF_NER_MODEL_NAME",
+    "HF_NER_MODEL_REVISION",
+    "HF_NER_MODEL_VERSION",
+    "NORMALIZATION_VERSION",
+    "PREPROCESSING_VERSION",
+    "RELATION_RULES_VERSION",
+    "ClinicalNLPService",
+]

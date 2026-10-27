@@ -1,0 +1,1083 @@
+{
+  "schema_version": "1.0.0",
+  "candidate_freeze": "clinical-faithfulness-v1-candidate@0.1.0",
+  "semantic_dataset_sha256": "66867659d92fecfaa879218f3b9695acef8687d4e6904f3152bb6ef98a99fc08",
+  "semantic_evaluator": "clinical-semantic-cascade@0.1.0",
+  "inference_evaluator": "bounded-clinical-inference@0.1.0",
+  "annotation_status": "ENGINEERING_NOT_CLINICIAN_GOLD",
+  "evaluation_policy": "Development and validation preceded candidate freeze. held_out_test was run once after freeze and was not used for subsequent semantic tuning.",
+  "overall": {
+    "case_count": 64,
+    "correct": 57,
+    "accuracy": 0.8906,
+    "macro_f1": 0.8909,
+    "by_relationship": {
+      "SUPPORTED": {
+        "true_positive": 15,
+        "false_positive": 2,
+        "false_negative": 1,
+        "precision": 0.8824,
+        "recall": 0.9375,
+        "f1": 0.9091
+      },
+      "INFERRED": {
+        "true_positive": 16,
+        "false_positive": 0,
+        "false_negative": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "UNCERTAIN": {
+        "true_positive": 13,
+        "false_positive": 4,
+        "false_negative": 3,
+        "precision": 0.7647,
+        "recall": 0.8125,
+        "f1": 0.7879
+      },
+      "CONTRADICTED": {
+        "true_positive": 13,
+        "false_positive": 1,
+        "false_negative": 3,
+        "precision": 0.9286,
+        "recall": 0.8125,
+        "f1": 0.8667
+      }
+    },
+    "coverage": {
+      "FULL": 59,
+      "PARTIAL": 2,
+      "UNASSESSED": 3
+    }
+  },
+  "by_split": {
+    "development": {
+      "case_count": 16,
+      "correct": 15,
+      "accuracy": 0.9375,
+      "macro_f1": 0.9365,
+      "by_relationship": {
+        "SUPPORTED": {
+          "true_positive": 4,
+          "false_positive": 0,
+          "false_negative": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "INFERRED": {
+          "true_positive": 4,
+          "false_positive": 0,
+          "false_negative": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "UNCERTAIN": {
+          "true_positive": 3,
+          "false_positive": 0,
+          "false_negative": 1,
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571
+        },
+        "CONTRADICTED": {
+          "true_positive": 4,
+          "false_positive": 1,
+          "false_negative": 0,
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.8889
+        }
+      },
+      "coverage": {
+        "FULL": 16
+      }
+    },
+    "validation": {
+      "case_count": 16,
+      "correct": 15,
+      "accuracy": 0.9375,
+      "macro_f1": 0.9365,
+      "by_relationship": {
+        "SUPPORTED": {
+          "true_positive": 4,
+          "false_positive": 0,
+          "false_negative": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "INFERRED": {
+          "true_positive": 4,
+          "false_positive": 0,
+          "false_negative": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "UNCERTAIN": {
+          "true_positive": 4,
+          "false_positive": 1,
+          "false_negative": 0,
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.8889
+        },
+        "CONTRADICTED": {
+          "true_positive": 3,
+          "false_positive": 0,
+          "false_negative": 1,
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571
+        }
+      },
+      "coverage": {
+        "FULL": 16
+      }
+    },
+    "held_out_test": {
+      "case_count": 16,
+      "correct": 13,
+      "accuracy": 0.8125,
+      "macro_f1": 0.8185,
+      "by_relationship": {
+        "SUPPORTED": {
+          "true_positive": 3,
+          "false_positive": 1,
+          "false_negative": 1,
+          "precision": 0.75,
+          "recall": 0.75,
+          "f1": 0.75
+        },
+        "INFERRED": {
+          "true_positive": 4,
+          "false_positive": 0,
+          "false_negative": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "UNCERTAIN": {
+          "true_positive": 3,
+          "false_positive": 2,
+          "false_negative": 1,
+          "precision": 0.6,
+          "recall": 0.75,
+          "f1": 0.6667
+        },
+        "CONTRADICTED": {
+          "true_positive": 3,
+          "false_positive": 0,
+          "false_negative": 1,
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571
+        }
+      },
+      "coverage": {
+        "FULL": 12,
+        "PARTIAL": 2,
+        "UNASSESSED": 2
+      }
+    },
+    "clinician_calibration": {
+      "case_count": 16,
+      "correct": 14,
+      "accuracy": 0.875,
+      "macro_f1": 0.874,
+      "by_relationship": {
+        "SUPPORTED": {
+          "true_positive": 4,
+          "false_positive": 1,
+          "false_negative": 0,
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.8889
+        },
+        "INFERRED": {
+          "true_positive": 4,
+          "false_positive": 0,
+          "false_negative": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "UNCERTAIN": {
+          "true_positive": 3,
+          "false_positive": 1,
+          "false_negative": 1,
+          "precision": 0.75,
+          "recall": 0.75,
+          "f1": 0.75
+        },
+        "CONTRADICTED": {
+          "true_positive": 3,
+          "false_positive": 0,
+          "false_negative": 1,
+          "precision": 1.0,
+          "recall": 0.75,
+          "f1": 0.8571
+        }
+      },
+      "coverage": {
+        "FULL": 15,
+        "UNASSESSED": 1
+      }
+    }
+  },
+  "case_results": [
+    {
+      "case_id": "sg-v0-001",
+      "split": "development",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-002",
+      "split": "validation",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-003",
+      "split": "held_out_test",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-004",
+      "split": "clinician_calibration",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-005",
+      "split": "development",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-006",
+      "split": "validation",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-007",
+      "split": "held_out_test",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-008",
+      "split": "clinician_calibration",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-009",
+      "split": "development",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-010",
+      "split": "validation",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-011",
+      "split": "held_out_test",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-012",
+      "split": "clinician_calibration",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-013",
+      "split": "development",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-014",
+      "split": "validation",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-015",
+      "split": "held_out_test",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "PARTIAL",
+      "finding_types": [
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "SOURCE_CLAIM_OMITTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-016",
+      "split": "clinician_calibration",
+      "gold_relationship": "SUPPORTED",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-017",
+      "split": "development",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY"
+      ]
+    },
+    {
+      "case_id": "sg-v0-018",
+      "split": "validation",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY",
+        "SOURCE_CLAIM_OMITTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-019",
+      "split": "held_out_test",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY"
+      ]
+    },
+    {
+      "case_id": "sg-v0-020",
+      "split": "clinician_calibration",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY",
+        "SOURCE_CLAIM_OMITTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-021",
+      "split": "development",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY",
+        "SOURCE_CLAIM_OMITTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-022",
+      "split": "validation",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY",
+        "SOURCE_CLAIM_OMITTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-023",
+      "split": "held_out_test",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY"
+      ]
+    },
+    {
+      "case_id": "sg-v0-024",
+      "split": "clinician_calibration",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY",
+        "SOURCE_CLAIM_OMITTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-025",
+      "split": "development",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY",
+        "SOURCE_CLAIM_OMITTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-026",
+      "split": "validation",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY",
+        "SOURCE_CLAIM_OMITTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-027",
+      "split": "held_out_test",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY"
+      ]
+    },
+    {
+      "case_id": "sg-v0-028",
+      "split": "clinician_calibration",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY"
+      ]
+    },
+    {
+      "case_id": "sg-v0-029",
+      "split": "development",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY"
+      ]
+    },
+    {
+      "case_id": "sg-v0-030",
+      "split": "validation",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY"
+      ]
+    },
+    {
+      "case_id": "sg-v0-031",
+      "split": "held_out_test",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY",
+        "SOURCE_CLAIM_OMITTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-032",
+      "split": "clinician_calibration",
+      "gold_relationship": "INFERRED",
+      "predicted_relationship": "INFERRED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "INFERRED"
+      ],
+      "reason_codes": [
+        "DERIVED_CLINICAL_SUMMARY"
+      ]
+    },
+    {
+      "case_id": "sg-v0-033",
+      "split": "development",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "UNCERTAIN"
+      ],
+      "reason_codes": [
+        "EXPLICIT_SOURCE_AMBIGUITY"
+      ]
+    },
+    {
+      "case_id": "sg-v0-034",
+      "split": "validation",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "UNCERTAIN"
+      ],
+      "reason_codes": [
+        "EXPLICIT_SOURCE_AMBIGUITY"
+      ]
+    },
+    {
+      "case_id": "sg-v0-035",
+      "split": "held_out_test",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-036",
+      "split": "clinician_calibration",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "SUPPORTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-037",
+      "split": "development",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ADDED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "DOSE_ADDED",
+        "SOURCE_CLAIM_OMITTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-038",
+      "split": "validation",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ADDED",
+        "UNCERTAIN"
+      ],
+      "reason_codes": [
+        "EXPLICIT_SOURCE_AMBIGUITY",
+        "UNSUPPORTED_ADDITION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-039",
+      "split": "held_out_test",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "UNASSESSED",
+      "finding_types": [],
+      "reason_codes": []
+    },
+    {
+      "case_id": "sg-v0-040",
+      "split": "clinician_calibration",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "OMITTED",
+        "SUPPORTED"
+      ],
+      "reason_codes": [
+        "CLAIM_SUPPORTED",
+        "SOURCE_CLAIM_OMITTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-041",
+      "split": "development",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "CERTAINTY_CHANGE"
+      ]
+    },
+    {
+      "case_id": "sg-v0-042",
+      "split": "validation",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ADDED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "SOURCE_CLAIM_OMITTED",
+        "UNSUPPORTED_ADDITION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-043",
+      "split": "held_out_test",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ADDED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "SOURCE_CLAIM_OMITTED",
+        "UNSUPPORTED_ADDITION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-044",
+      "split": "clinician_calibration",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ADDED"
+      ],
+      "reason_codes": [
+        "DATE_ADDED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-045",
+      "split": "development",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ADDED"
+      ],
+      "reason_codes": [
+        "DATE_ADDED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-046",
+      "split": "validation",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ADDED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "SOURCE_CLAIM_OMITTED",
+        "UNSUPPORTED_ADDITION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-047",
+      "split": "held_out_test",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "UNASSESSED",
+      "finding_types": [],
+      "reason_codes": []
+    },
+    {
+      "case_id": "sg-v0-048",
+      "split": "clinician_calibration",
+      "gold_relationship": "UNCERTAIN",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ADDED",
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "SOURCE_CLAIM_OMITTED",
+        "UNSUPPORTED_ADDITION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-049",
+      "split": "development",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "CERTAINTY_CHANGE"
+      ]
+    },
+    {
+      "case_id": "sg-v0-050",
+      "split": "validation",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "SUBJECT_ATTRIBUTION_ERROR"
+      ]
+    },
+    {
+      "case_id": "sg-v0-051",
+      "split": "held_out_test",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "SEMANTIC_CONTRADICTION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-052",
+      "split": "clinician_calibration",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "SEMANTIC_CONTRADICTION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-053",
+      "split": "development",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "SEMANTIC_CONTRADICTION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-054",
+      "split": "validation",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "NEGATION_REVERSAL"
+      ]
+    },
+    {
+      "case_id": "sg-v0-055",
+      "split": "held_out_test",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "PARTIAL",
+      "finding_types": [
+        "OMITTED"
+      ],
+      "reason_codes": [
+        "SOURCE_CLAIM_OMITTED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-056",
+      "split": "clinician_calibration",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "SEMANTIC_CONTRADICTION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-057",
+      "split": "development",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "SEMANTIC_CONTRADICTION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-058",
+      "split": "validation",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ADDED"
+      ],
+      "reason_codes": [
+        "DATE_ADDED"
+      ]
+    },
+    {
+      "case_id": "sg-v0-059",
+      "split": "held_out_test",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "SEMANTIC_CONTRADICTION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-060",
+      "split": "clinician_calibration",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "UNCERTAIN",
+      "coverage_status": "UNASSESSED",
+      "finding_types": [],
+      "reason_codes": []
+    },
+    {
+      "case_id": "sg-v0-061",
+      "split": "development",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "SEMANTIC_CONTRADICTION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-062",
+      "split": "validation",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "SEMANTIC_CONTRADICTION"
+      ]
+    },
+    {
+      "case_id": "sg-v0-063",
+      "split": "held_out_test",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "LATERALITY_MISMATCH"
+      ]
+    },
+    {
+      "case_id": "sg-v0-064",
+      "split": "clinician_calibration",
+      "gold_relationship": "CONTRADICTED",
+      "predicted_relationship": "CONTRADICTED",
+      "coverage_status": "FULL",
+      "finding_types": [
+        "ALTERED"
+      ],
+      "reason_codes": [
+        "NEGATION_REVERSAL"
+      ]
+    }
+  ]
+}

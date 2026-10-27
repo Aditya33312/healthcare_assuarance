@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_version": "0.1.0",
+  "semantic_dataset_sha256": "66867659d92fecfaa879218f3b9695acef8687d4e6904f3152bb6ef98a99fc08",
+  "evaluated_splits": [
+    "development",
+    "validation"
+  ],
+  "held_out_test_touched": false,
+  "clinician_calibration_touched": false,
+  "runtime": {
+    "python": "3.13.5",
+    "platform": "macOS-13.7.8-x86_64-i386-64bit-Mach-O"
+  },
+  "candidates": {
+    "clinical_biomedical_nli": {
+      "model": "cnut1648/biolinkbert-mednli",
+      "revision": "f9f4a9d1e046a0e6574feef938f1308cecaebbd5",
+      "license": "Apache-2.0",
+      "status": "NOT_RUN_RUNTIME_UNAVAILABLE",
+      "reason": "The locked Python 3.13 x86_64 macOS environment has no compatible PyTorch wheel. The 1.334 GB checkpoint was not treated as evaluated.",
+      "intended_role": "SUPPORTED_CONTRADICTED_UNCERTAIN_CLASSIFICATION"
+    },
+    "biomedical_embedding_alignment": {
+      "model": "NeuML/pubmedbert-base-embeddings-500K",
+      "revision": "71f65d59ddf416f7c2dbf5580ebaa70b6bec7707",
+      "license": "Apache-2.0",
+      "status": "RUN_COMPLETE",
+      "intended_role": "CANDIDATE_EVIDENCE_RETRIEVAL_ONLY",
+      "evaluated_case_count": 32,
+      "retrieval_pool_size": 32,
+      "recall_at_1": 0.5938,
+      "recall_at_3": 0.8438,
+      "mean_reciprocal_rank": 0.7396,
+      "mean_paired_cosine": 0.5135,
+      "minimum_paired_cosine": 0.0446,
+      "model_load_seconds": 0.0317,
+      "mean_encode_milliseconds_per_pair": 0.257,
+      "dependency_versions": {
+        "model2vec": "0.9.0",
+        "numpy": "2.5.2",
+        "tokenizers": "0.23.1",
+        "safetensors": "0.8.0"
+      },
+      "clinical_entailment_metrics": null,
+      "interpretation": "Similarity is evaluated only as evidence retrieval. It is not mapped to SUPPORTED, INFERRED, or CONTRADICTED."
+    },
+    "controlled_llm_judge": {
+      "model": null,
+      "revision": null,
+      "prompt_version": "clinical-semantic-judge@0.1.0",
+      "temperature": 0,
+      "status": "NOT_RUN_DISABLED_NO_APPROVED_PROVIDER_OR_CREDENTIALS",
+      "reason": "No approved external model, credentials, or clinical-data processing configuration is present. No benchmark text was transmitted.",
+      "intended_role": "UNRESOLVED_CASES_ONLY"
+    }
+  },
+  "selection": {
+    "decision": "DETERMINISTIC_TERMINOLOGY_AND_BOUNDED_INFERENCE_CASCADE",
+    "fine_tuning": "NOT_AUTHORIZED_INSUFFICIENT_CLINICIAN_REVIEWED_LABELS",
+    "limitations": "Only Candidate B was runnable locally. This is a feasibility and retrieval benchmark, not validation of a pretrained clinical entailment model."
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gatekeeper.health/schemas/contracts/expectation/1.0.0",
+  "title": "Gatekeeper Test Expectation Contract",
+  "description": "Version 1.0.0 discriminated expectation contract for generative and deterministic test families.",
+  "oneOf": [
+    { "$ref": "#/$defs/exactAnswer" },
+    { "$ref": "#/$defs/expectedFacts" },
+    { "$ref": "#/$defs/requiredFacts" },
+    { "$ref": "#/$defs/forbiddenFacts" },
+    { "$ref": "#/$defs/expectedBehavior" },
+    { "$ref": "#/$defs/rubric" },
+    { "$ref": "#/$defs/invariance" },
+    { "$ref": "#/$defs/referenceEvidence" },
+    { "$ref": "#/$defs/policyRules" },
+    { "$ref": "#/$defs/expectedFindings" }
+  ],
+  "$defs": {
+    "baseProperties": {
+      "schema_version": { "const": "1.0.0" },
+      "expectation_type": {
+        "enum": [
+          "EXACT_ANSWER",
+          "EXPECTED_FACTS",
+          "REQUIRED_FACTS",
+          "FORBIDDEN_FACTS",
+          "EXPECTED_BEHAVIOR",
+          "RUBRIC",
+          "INVARIANCE",
+          "REFERENCE_EVIDENCE",
+          "POLICY_RULES",
+          "EXPECTED_FINDINGS"
+        ]
+      }
+    },
+    "exactAnswer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "expectation_type", "expected_answer", "normalization"],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "expectation_type": { "const": "EXACT_ANSWER" },
+        "expected_answer": { "type": ["string", "number", "boolean"] },
+        "normalization": { "enum": ["EXACT", "CASE_INSENSITIVE", "WHITESPACE", "NORMALIZED"] }
+      }
+    },
+    "expectedFacts": {
+      "$ref": "#/$defs/factListBase",
+      "description": "All listed facts are the expected clinical content."
+    },
+    "requiredFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "expectation_type", "required_facts"],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "expectation_type": { "const": "REQUIRED_FACTS" },
+        "required_facts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/fact" } }
+      }
+    },
+    "forbiddenFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "expectation_type", "forbidden_facts"],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "expectation_type": { "const": "FORBIDDEN_FACTS" },
+        "forbidden_facts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/fact" } }
+      }
+    },
+    "factListBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "expectation_type", "expected_facts"],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "expectation_type": { "const": "EXPECTED_FACTS" },
+        "expected_facts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/fact" } }
+      }
+    },
+    "fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["concept", "assertion", "subject", "attributes"],
+      "properties": {
+        "concept": { "type": "string", "minLength": 1 },
+        "type": {
+          "enum": [
+            "CONDITION", "SYMPTOM", "MEDICATION", "DOSE", "UNIT", "FREQUENCY", "ROUTE",
+            "PROCEDURE", "BODY_SITE", "LATERALITY", "ALLERGY", "LAB_TEST", "LAB_VALUE",
+            "DATE", "TIME", "DURATION", "AGE", "CLINICAL_FACT"
+          ]
+        },
+        "assertion": {
+          "enum": [
+            "PRESENT", "ABSENT", "POSSIBLE", "HISTORICAL", "FAMILY_HISTORY",
+            "HYPOTHETICAL", "CONDITIONAL", "UNCERTAIN"
+          ]
+        },
+        "subject": { "enum": ["PATIENT", "FAMILY", "OTHER_PERSON", "UNKNOWN"] },
+        "attributes": { "$ref": "#/$defs/factAttributes" }
+      }
+    },
+    "factAttributes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": { "type": ["number", "string", "null"] },
+        "dose": { "type": ["number", "string", "null"] },
+        "unit": { "type": ["string", "null"] },
+        "frequency": { "type": ["string", "null"] },
+        "route": { "type": ["string", "null"] },
+        "formulation": { "type": ["string", "null"] },
+        "laterality": {
+          "enum": ["LEFT", "RIGHT", "BILATERAL", "MIDLINE", "NOT_APPLICABLE", "UNKNOWN", null]
+        },
+        "body_site": { "type": ["string", "null"] },
+        "lab_value": { "type": ["number", "string", "null"] },
+        "lab_unit": { "type": ["string", "null"] },
+        "date": { "type": ["string", "null"] },
+        "time": { "type": ["string", "null"] },
+        "duration": { "type": ["string", "null"] },
+        "age": { "type": ["number", "string", "null"] },
+        "normalized_value": { "type": ["number", "string", "null"] },
+        "normalized_unit": { "type": ["string", "null"] },
+        "raw_value": { "type": ["number", "string", "null"] },
+        "raw_unit": { "type": ["string", "null"] },
+        "parent_concept": { "type": ["string", "null"] },
+        "parent_claim_id": { "type": ["string", "null"] }
+      }
+    },
+    "expectedBehavior": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "expectation_type", "must_do", "must_avoid"],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "expectation_type": { "const": "EXPECTED_BEHAVIOR" },
+        "must_do": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "must_avoid": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+      },
+      "anyOf": [
+        { "properties": { "must_do": { "minItems": 1 } } },
+        { "properties": { "must_avoid": { "minItems": 1 } } }
+      ]
+    },
+    "rubric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "expectation_type", "criteria", "passing_score"],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "expectation_type": { "const": "RUBRIC" },
+        "criteria": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/rubricCriterion" } },
+        "passing_score": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "rubricCriterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["criterion_id", "description", "weight", "blocking"],
+      "properties": {
+        "criterion_id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$" },
+        "description": { "type": "string", "minLength": 1 },
+        "weight": { "type": "number", "exclusiveMinimum": 0, "maximum": 100 },
+        "blocking": { "type": "boolean" }
+      }
+    },
+    "invariance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "expectation_type", "expected_behavior", "allowed_variance"],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "expectation_type": { "const": "INVARIANCE" },
+        "expected_behavior": { "type": "string", "minLength": 1 },
+        "allowed_variance": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+      }
+    },
+    "referenceEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "expectation_type", "evidence_ids", "grounding_threshold"],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "expectation_type": { "const": "REFERENCE_EVIDENCE" },
+        "evidence_ids": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "grounding_threshold": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "policyRules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "expectation_type", "policy_id", "policy_version", "rules"],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "expectation_type": { "const": "POLICY_RULES" },
+        "policy_id": { "type": "string", "minLength": 1 },
+        "policy_version": { "$ref": "#/$defs/semanticVersion" },
+        "rules": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/policyRule" } }
+      }
+    },
+    "policyRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule_id", "requirement", "expected_behavior", "severity", "blocking_tier"],
+      "properties": {
+        "rule_id": { "type": "string", "minLength": 1 },
+        "requirement": { "type": "string", "minLength": 1 },
+        "expected_behavior": { "type": "string", "minLength": 1 },
+        "severity": { "enum": ["LOW", "MODERATE", "HIGH", "CRITICAL"] },
+        "blocking_tier": { "enum": ["BLOCKING", "WARNING", "INFORMATIONAL"] }
+      }
+    },
+    "expectedFindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "expectation_type", "expected_findings", "allow_additional_findings"],
+      "properties": {
+        "schema_version": { "const": "1.0.0" },
+        "expectation_type": { "const": "EXPECTED_FINDINGS" },
+        "expected_findings": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "https://gatekeeper.health/schemas/contracts/finding/1.0.0" }
+        },
+        "allow_additional_findings": { "type": "boolean" }
+      }
+    },
+    "semanticVersion": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+    }
+  }
+}

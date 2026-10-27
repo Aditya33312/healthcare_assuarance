@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gatekeeper.health/schemas/contracts/finding/1.0.0",
+  "title": "Gatekeeper Finding Contract",
+  "description": "Version 1.0.0 auditable finding contract. Null evidence is permitted only where one comparison side has no supporting text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "finding_id",
+    "type",
+    "category",
+    "severity",
+    "source",
+    "generated",
+    "reason_code",
+    "explanation",
+    "confidence",
+    "evaluator",
+    "evaluator_version",
+    "severity_policy_version"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "finding_id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$" },
+    "type": { "enum": ["SUPPORTED", "ADDED", "ALTERED", "OMITTED", "INFERRED", "UNCERTAIN"] },
+    "category": {
+      "enum": [
+        "symptom",
+        "diagnosis",
+        "procedure",
+        "allergy",
+        "clinical_fact",
+        "medication_identity",
+        "medication_dose",
+        "medication_unit",
+        "medication_frequency",
+        "medication_route",
+        "laterality",
+        "assertion",
+        "certainty",
+        "subject_attribution",
+        "lab_value",
+        "date",
+        "duration",
+        "inference",
+        "alignment"
+      ]
+    },
+    "severity": { "enum": ["LOW", "MODERATE", "HIGH", "CRITICAL"] },
+    "source": {
+      "oneOf": [
+        { "$ref": "#/$defs/textSpan" },
+        { "type": "null" }
+      ]
+    },
+    "generated": {
+      "oneOf": [
+        { "$ref": "#/$defs/textSpan" },
+        { "type": "null" }
+      ]
+    },
+    "reason_code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{1,63}$" },
+    "explanation": { "type": "string", "minLength": 1 },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "evaluator": { "type": "string", "minLength": 1 },
+    "evaluator_version": { "$ref": "#/$defs/semanticVersion" },
+    "severity_policy_version": { "$ref": "#/$defs/componentVersion" },
+    "rule_id": { "type": ["string", "null"], "minLength": 1 },
+    "rule_version": {
+      "oneOf": [
+        { "$ref": "#/$defs/semanticVersion" },
+        { "type": "null" }
+      ]
+    },
+    "alignment_method": {
+      "enum": ["EXACT", "NORMALIZED", "ATTRIBUTE", "EMBEDDING", "SEMANTIC", "NONE"]
+    },
+    "source_support": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/textSpan" },
+      "uniqueItems": true
+    },
+    "uncertainty_reason": { "type": ["string", "null"], "minLength": 1 },
+    "candidate_evidence": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/textSpan" },
+      "uniqueItems": true
+    },
+    "source_provenance": {
+      "oneOf": [
+        { "$ref": "#/$defs/evidenceReference" },
+        { "type": "null" }
+      ]
+    },
+    "generated_provenance": {
+      "oneOf": [
+        { "$ref": "#/$defs/evidenceReference" },
+        { "type": "null" }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "type": { "const": "ADDED" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "source": { "type": "null" },
+          "generated": { "$ref": "#/$defs/textSpan" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "OMITTED" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "source": { "$ref": "#/$defs/textSpan" },
+          "generated": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "enum": ["SUPPORTED", "ALTERED"] } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "source": { "$ref": "#/$defs/textSpan" },
+          "generated": { "$ref": "#/$defs/textSpan" }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "semanticVersion": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+    },
+    "componentVersion": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*@(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "textSpan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "start", "end"],
+      "properties": {
+        "document_id": { "type": ["string", "null"], "minLength": 1 },
+        "text": { "type": "string", "minLength": 1 },
+        "start": { "type": "integer", "minimum": 0 },
+        "end": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "evidenceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_unit_id",
+        "document_id",
+        "source_type",
+        "raw_start_offset",
+        "raw_end_offset",
+        "normalized_start_offset",
+        "normalized_end_offset"
+      ],
+      "properties": {
+        "evidence_unit_id": { "type": "string", "minLength": 1 },
+        "document_id": { "type": "string", "minLength": 1 },
+        "source_type": { "type": "string", "minLength": 1 },
+        "source_path": { "type": ["string", "null"] },
+        "segment_id": { "type": ["string", "null"] },
+        "timestamp": { "type": ["string", "null"] },
+        "speaker": { "type": ["string", "null"] },
+        "section": { "type": ["string", "null"] },
+        "chunk_id": { "type": ["string", "null"] },
+        "source_uri": { "type": ["string", "null"] },
+        "rag_chunk_id": { "type": ["string", "null"] },
+        "source_document_id": { "type": ["string", "null"] },
+        "retrieval_score": { "type": ["string", "null"] },
+        "retrieval_metadata": { "type": ["object", "null"] },
+        "raw_start_offset": { "type": "integer", "minimum": 0 },
+        "raw_end_offset": { "type": "integer", "minimum": 0 },
+        "normalized_start_offset": { "type": "integer", "minimum": 0 },
+        "normalized_end_offset": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

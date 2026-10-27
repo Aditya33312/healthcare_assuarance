@@ -1,0 +1,68 @@
+"""Typed values used by application profiles.
+
+The enum values are persistence/API values.  Changing one is therefore a
+contract change, not a display-label change.
+"""
+
+from enum import StrEnum
+
+
+class ApplicationType(StrEnum):
+    CLINICAL_SCRIBE = "CLINICAL_SCRIBE"
+    CLINICAL_SUMMARIZER = "CLINICAL_SUMMARIZER"
+    CLINICAL_CHATBOT = "CLINICAL_CHATBOT"
+    PATIENT_ASSISTANT = "PATIENT_ASSISTANT"
+    RAG_ASSISTANT = "RAG_ASSISTANT"
+    CLINICAL_DECISION_SUPPORT = "CLINICAL_DECISION_SUPPORT"
+    CLINICAL_LETTER_GENERATOR = "CLINICAL_LETTER_GENERATOR"
+    HEALTHCARE_ADMIN_AI = "HEALTHCARE_ADMIN_AI"
+    AGENTIC_AI = "AGENTIC_AI"
+    OTHER = "OTHER"
+
+
+class InputType(StrEnum):
+    CLINICAL_TEXT = "CLINICAL_TEXT"
+    CLINICAL_TRANSCRIPT = "CLINICAL_TRANSCRIPT"
+    QUESTION = "QUESTION"
+    DOCUMENT = "DOCUMENT"
+    STRUCTURED_DATA = "STRUCTURED_DATA"
+    AUDIO = "AUDIO"
+    IMAGE = "IMAGE"
+    MULTIMODAL = "MULTIMODAL"
+    OTHER = "OTHER"
+
+
+class OutputType(StrEnum):
+    CLINICAL_TEXT = "CLINICAL_TEXT"
+    CLINICAL_NOTE = "CLINICAL_NOTE"
+    CLINICAL_SUMMARY = "CLINICAL_SUMMARY"
+    CLINICAL_LETTER = "CLINICAL_LETTER"
+    ANSWER = "ANSWER"
+    RECOMMENDATION = "RECOMMENDATION"
+    STRUCTURED_DATA = "STRUCTURED_DATA"
+    TOOL_ACTION = "TOOL_ACTION"
+    MULTIMODAL = "MULTIMODAL"
+    OTHER = "OTHER"
+
+
+class ApplicationEnvironment(StrEnum):
+    TEST = "TEST"
+    STAGING = "STAGING"
+    PRODUCTION = "PRODUCTION"
+
+
+class RiskTier(StrEnum):
+    LOW = "LOW"
+    MODERATE = "MODERATE"
+    HIGH = "HIGH"
+    CRITICAL = "CRITICAL"
+
+
+class AuthenticationType(StrEnum):
+    NONE = "NONE"
+    API_KEY = "API_KEY"
+    BEARER_TOKEN = "BEARER_TOKEN"
+    BASIC = "BASIC"
+    OAUTH2 = "OAUTH2"
+    MTLS = "MTLS"
+    CUSTOM = "CUSTOM"

@@ -1,0 +1,591 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_version": "0.4.0",
+  "status": "PENDING_TWO_INDEPENDENT_CLINICIAN_REVIEWS",
+  "blinding": {
+    "automated_gatekeeper_result_included": false,
+    "engineering_gold_included": false,
+    "reviewers_must_complete_initial_labels_independently": true
+  },
+  "review_policy": {
+    "minimum_independent_reviewers": 2,
+    "reviewer_ids_must_differ": true,
+    "gold_change_requires_adjudication": true,
+    "single_reviewer_gold_change_allowed": false,
+    "adjudicator_must_not_be_an_initial_reviewer": true
+  },
+  "allowed_classifications": [
+    "SUPPORTED",
+    "ADDED",
+    "ALTERED",
+    "OMITTED",
+    "INFERRED",
+    "UNCERTAIN"
+  ],
+  "allowed_severities": [
+    "LOW",
+    "MODERATE",
+    "HIGH",
+    "CRITICAL"
+  ],
+  "review_record_schema": {
+    "reviewer_id": "",
+    "credential_attestation_reference": "",
+    "classification": null,
+    "severity": null,
+    "supporting_evidence": [],
+    "rationale": "",
+    "blinded_to_automation": true,
+    "submitted_at": null
+  },
+  "cases": [
+    {
+      "test_case_id": "cf-v0-045",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The patient has a penicillin allergy."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "The patient has no known allergies."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-046",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Take ceftriaxone 1 g orally."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Take ceftriaxone 1 g IV."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-047",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Left-sided appendectomy."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Right-sided appendectomy."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-048",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Take metformin 500 mg BID."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Take metformin 500 mg QID."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-049",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Pregnancy test was negative."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Pregnancy test was positive."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-050",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Take metformin 1000 mcg daily."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Take metformin 1 mg daily."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-072",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The patient denies chest pain."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "The patient reports no chest pain."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-073",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The patient is negative for fever."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "The patient has no fever."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-074",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Serum sodium is 138 mmol/L."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "The sodium level is 138 mmol/L."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-075",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Follow-up is on April 7, 2026."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Follow-up is on 7 April 2026."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-097",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Follow-up is on May 2, 2026."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Follow-up is on May 9, 2026."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-098",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Cough has lasted 3 days."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Cough has lasted 3 weeks."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-099",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "A penicillin allergy is documented."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "The patient has no known allergies."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-100",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The patient is allergic to amoxicillin."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "The patient has no known drug allergies."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-122",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Patient reports headache; baseline note 22."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Patient reports headache and ceftriaxone; generated note 22."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-123",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Patient reports headache; baseline note 23."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Patient reports headache and penicillin allergy; generated note 23."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-124",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Patient reports headache; baseline note 24."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Patient reports headache and amoxicillin allergy; generated note 24."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-125",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Patient reports headache; baseline note 25."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Patient reports headache and right knee pain; generated note 25."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-147",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Serum potassium is 6.2 mmol/L."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Follow-up planning was documented in summary 22."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-148",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Serum sodium is 125 mmol/L."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Follow-up planning was documented in summary 23."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-149",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The pregnancy test is positive."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Follow-up planning was documented in summary 24."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-150",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The patient reports right knee pain."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Follow-up planning was documented in summary 25."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-172",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The patient has cough for 3 weeks."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "A persistent respiratory condition is possible."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-173",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The patient has fever after ceftriaxone was stopped."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "The infection may be unresolved."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-174",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The patient has asthma and uses albuterol daily."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Airway disease remains active."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-175",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "Creatinine is 3.2 mg/dL with fatigue."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "Renal dysfunction is possible."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-197",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The source documents dyspnea."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "An unspecified clinical relationship is possible."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-198",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The source documents urinary tract infection."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "An unspecified clinical relationship is possible."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-199",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The source documents anaphylaxis."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "An unspecified clinical relationship is possible."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    },
+    {
+      "test_case_id": "cf-v0-200",
+      "source_documents": [
+        {
+          "document_id": "source_001",
+          "type": "clinical_text",
+          "content": "The source documents hypertension."
+        }
+      ],
+      "generated_output": {
+        "document_id": "generated_output",
+        "type": "clinical_text",
+        "content": "An unspecified clinical relationship is possible."
+      },
+      "reviewer_a": null,
+      "reviewer_b": null,
+      "adjudication": null
+    }
+  ],
+  "required_metrics": [
+    "classification_percent_agreement",
+    "severity_percent_agreement",
+    "classification_cohens_kappa",
+    "severity_weighted_kappa",
+    "gatekeeper_vs_adjudicated_precision_recall_f1"
+  ],
+  "completion_attestation": null
+}

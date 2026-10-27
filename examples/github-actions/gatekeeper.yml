@@ -1,0 +1,43 @@
+name: Healthcare AI release gate
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  gatekeeper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - name: Run Gatekeeper assurance
+        env:
+          GATEKEEPER_API_KEY: ${{ secrets.GATEKEEPER_API_KEY }}
+          GK_API_URL: ${{ vars.GATEKEEPER_API_URL }}
+          GK_SYSTEM_ID: ${{ vars.GATEKEEPER_SYSTEM_ID }}
+          GK_TEST_PLAN_ID: ${{ vars.GATEKEEPER_TEST_PLAN_ID }}
+          GK_TEST_SUITE_VERSION: ${{ vars.GATEKEEPER_TEST_SUITE_VERSION }}
+          GK_SYSTEM_VERSION: ${{ github.sha }}
+          GK_COMMIT_SHA: ${{ github.sha }}
+          GK_BRANCH: ${{ github.head_ref }}
+          GK_PULL_REQUEST: ${{ github.event.pull_request.number }}
+          GK_GITHUB_RUN_ID: ${{ github.run_id }}
+          GK_GITHUB_RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          python scripts/gatekeeper_ci_gate.py \
+          --api-url "$GK_API_URL" \
+          --system-id "$GK_SYSTEM_ID" \
+          --system-version "$GK_SYSTEM_VERSION" \
+          --test-suite-id "clinical-scribe-core" \
+          --test-suite-version "$GK_TEST_SUITE_VERSION" \
+          --test-plan-id "$GK_TEST_PLAN_ID" \
+          --commit-sha "$GK_COMMIT_SHA" \
+          --branch "$GK_BRANCH" \
+          --pull-request "$GK_PULL_REQUEST" \
+          --github-run-id "$GK_GITHUB_RUN_ID" \
+          --github-run-attempt "$GK_GITHUB_RUN_ATTEMPT"
