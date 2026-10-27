@@ -97,6 +97,7 @@ def test_anthropic_planner_returns_grounded_preview() -> None:
     prompt = json.dumps(seen["body"])
     assert "customer.example.test" not in prompt
     assert "anthropic-test-secret" not in prompt
+    assert "temperature" not in seen["body"]
     assert seen["headers"]["x-api-key"] == "anthropic-test-secret"
 
 

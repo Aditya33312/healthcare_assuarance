@@ -145,7 +145,6 @@ class AnthropicTestSelectionPlanner:
         payload = {
             "model": self.model,
             "max_tokens": 1200,
-            "temperature": 0,
             "system": (
                 "You are a healthcare AI assurance planning assistant. "
                 "Return only JSON matching this shape: "
